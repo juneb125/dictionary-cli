@@ -5,18 +5,23 @@ import gleam/io
 import gleam/result
 import gleam/uri
 
-// returns a random joke
-pub const jokes_api: String = "https://official-joke-api.appspot.com/random_joke"
+// TODO: import API keys from .env file
+pub const mw_dictionary_key: String = ""
+pub const mw_thesaurus_key: String = ""
 
-// returns 10 random jokes
-// let ten_jokes_api: String = "https://official-joke-api.appspot.com/random_ten"
+// base request url's
+pub const dictionary_url: String = "https://www.dictionaryapi.com/api/v3/references/collegiate/json/"
+pub const thesaurus_url: String = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/"
 
 pub fn main() -> Nil {
   argv.load().arguments
   |> parse_args
   |> io.println
 
-  call_api(jokes_api)
+	// let word = "..."
+	// let api_call = dictionary_url <> word <> "?key=" <> mw_dictionary_key
+
+  call_api(mw_dictionary_key)
   |> result.unwrap("Error: couldn't get HTTP response")
   |> io.println
 }
@@ -39,7 +44,7 @@ pub fn parse_args(args: List(String)) -> String {
       case rest {
         ["--pos=" <> pos] | ["--pos", pos] ->
           "word = " <> word <> "\npos = " <> pos
-        _ -> "something else"
+        _ -> ""
       }
     }
     _ -> ""
